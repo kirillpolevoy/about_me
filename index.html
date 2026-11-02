@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kirill Polevoy</title>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&family=VT323&display=swap" rel="stylesheet">
+<style>
+:root{--desk:#6b6bb5;--desk2:#5a5aa3;--plat:#dddddd;--hi:#ffffff;--lo:#888888;--ink:#000}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--desk:#3a3a5e;--desk2:#30304f}}
+:root[data-theme="dark"]{--desk:#3a3a5e;--desk2:#30304f}
+*{box-sizing:border-box}
+html{background:var(--desk)}
+body{margin:0;color:var(--ink);font:13px/1.5 Geneva,"Helvetica Neue",Helvetica,Arial,sans-serif;min-height:100vh;overflow:hidden;
+background:radial-gradient(ellipse at 50% 30%,#3b3a40 0%,#1b1a1e 60%,#0e0d10 100%)}
+.imac{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 16px 0}
+.shell{position:relative;width:min(1400px,96vw,calc((100vh - 200px) * 1.3333 + 104px));min-width:min(700px,96vw);padding:30px 34px 0;border-radius:70px 70px 90px 90px/60px 60px 120px 120px;
+background:linear-gradient(180deg,#f4f7f8 0,#e3eaec 8%,#d5dfe2 92%,#c9d4d8 100%);box-shadow:0 30px 60px rgba(0,0,0,.6),inset 0 2px 0 #fff,inset 0 -6px 18px rgba(0,0,0,.12)}
+.shell::before{content:"";position:absolute;inset:auto 18% -14px;height:60px;border-radius:0 0 60% 60%;background:linear-gradient(#18a9bd,#0b7383);opacity:.9;z-index:-1}
+.bezel{background:#1b1c1f;border-radius:26px 26px 30px 30px/22px 22px 28px 28px;padding:18px;box-shadow:inset 0 0 0 2px #0a0a0a,inset 0 6px 14px rgba(0,0,0,.8)}
+.screen{position:relative;transform:translateZ(0);height:calc(100vh - 200px);min-height:420px;border-radius:20px/16px;overflow:hidden;background:var(--desk);
+box-shadow:0 0 0 2px #000,0 0 34px rgba(120,170,255,.22)}
+.scroller{position:absolute;inset:0;overflow:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;background-color:var(--desk);
+background-image:repeating-conic-gradient(var(--desk) 0 25%,var(--desk2) 0 50%);background-size:4px 4px}
+.crt{position:absolute;inset:0;pointer-events:none;z-index:200;border-radius:inherit;
+background:repeating-linear-gradient(rgba(0,0,0,.09) 0 1px,transparent 1px 3px),radial-gradient(ellipse at 50% 45%,rgba(255,255,255,.07),transparent 60%);
+box-shadow:inset 0 0 90px rgba(0,0,0,.55),inset 0 0 14px rgba(0,0,0,.6);animation:flick 6s infinite steps(1)}
+.screen.clean .crt{background:none;animation:none;box-shadow:inset 0 0 24px rgba(0,0,0,.35)}
+@keyframes flick{0%,96%{opacity:1}97%{opacity:.86}98%{opacity:1}}
+.chin{position:relative;height:92px;display:flex;align-items:center;justify-content:center;gap:22px;color:#7d8b90;font:600 22px "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.02em}
+.chin .grill{position:absolute;top:26px;width:70px;height:38px;border-radius:50%;background:radial-gradient(#9aa7ab 1.2px,transparent 1.6px) 0 0/6px 6px;opacity:.6}
+.chin .grill.l{left:14%}.chin .grill.r{right:14%}
+.chin .cd{position:absolute;bottom:22px;left:50%;transform:translateX(-50%) translateX(140px);width:110px;height:4px;border-radius:2px;background:#b4c0c4;box-shadow:inset 0 1px 1px rgba(0,0,0,.25)}
+.chin .led{position:absolute;bottom:20px;right:24%;width:7px;height:7px;border-radius:50%;background:#7cf07c;box-shadow:0 0 8px #7cf07c}
+.stand{width:min(420px,40vw);height:26px;margin-top:-2px;border-radius:0 0 50% 50%/0 0 100% 100%;background:linear-gradient(rgba(30,170,190,.85),rgba(10,100,115,.9));box-shadow:0 16px 30px rgba(0,0,0,.5)}
+.caption{color:#77757e;font:11px Geneva,Verdana,sans-serif;margin:10px 0 12px;text-align:center}
+@media (max-width:760px){
+ body{overflow:hidden}
+ .imac{padding:0;display:block}
+ .shell{width:100%;padding:0;border-radius:0;background:none;box-shadow:none}
+ .shell::before,.chin,.stand,.caption{display:none}
+ .bezel{padding:0;border-radius:0;box-shadow:none}
+ .screen{height:100vh;height:100dvh;min-height:0;border-radius:0;box-shadow:none}
+ .crt{box-shadow:inset 0 0 40px rgba(0,0,0,.45);background:repeating-linear-gradient(rgba(0,0,0,.04) 0 1px,transparent 1px 3px)}
+}
+a{color:#0000cc}
+img{display:block;max-width:100%}
+</style>
+</head>
+<body>
+<div class="imac"><div class="shell"><div class="bezel"><div class="screen" id="screen"><div class="scroller" id="scroller">
+<header>
+  <div id="menubar" style="position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:2px;height:22px;padding:0 8px;background:#dddddd;border-bottom:1px solid #000;box-shadow:inset 0 1px 0 #fff;font:600 13px 'Pixelify Sans',Chicago,Geneva,sans-serif;white-space:nowrap">
+    <button class="mi" data-menu="apple" aria-label="Apple menu" style="all:unset;cursor:default;padding:0 8px;height:22px;display:flex;align-items:center"><span style="display:inline-block;width:14px;height:15px;background:linear-gradient(#61bb46 0 17%,#fdb827 17% 33%,#f5821f 33% 50%,#e03a3e 50% 67%,#963d97 67% 83%,#009ddc 83%);border-radius:2px"></span></button>
+    <button class="mi" data-menu="go" style="all:unset;cursor:default;padding:0 8px;height:22px;line-height:22px">Go</button>
+    <button class="mi" data-menu="special" style="all:unset;cursor:default;padding:0 8px;height:22px;line-height:22px">Special</button>
+    <span style="margin-left:auto;font-weight:400;padding:0 6px" id="clock">Chicago, IL</span>
+  </div>
+</header>
+
+<style>
+#wall{position:fixed;inset:0;z-index:0;pointer-events:none;background-size:cover;background-position:center;image-rendering:pixelated;opacity:0;transition:opacity 1.2s}
+#wall.on{opacity:1}
+.desk{position:relative;z-index:1;min-height:calc(100% - 22px);padding:28px 120px 40px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.w{position:relative;width:100%;max-width:660px;background:var(--plat);border:1px solid #000;box-shadow:inset 1px 1px 0 var(--hi),inset -1px -1px 0 var(--lo),2px 2px 0 rgba(0,0,0,.55);padding:0 4px 4px}
+.js .w{display:none}
+.js .w.cur{display:block;animation:zap .22s steps(4)}
+@keyframes zap{from{clip-path:inset(45% 45%)}to{clip-path:inset(0 0)}}
+.tb{position:relative;height:20px;margin:0 -4px 4px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #000;
+background:repeating-linear-gradient(var(--plat) 0 2px,#999 2px 3px,#fff 3px 4px);background-clip:content-box;background-origin:content-box;padding:4px 26px;user-select:none;-webkit-user-select:none}
+.tb .n{background:var(--plat);padding:0 8px;font:600 12px "Pixelify Sans",Chicago,Geneva,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb .cb{position:absolute;left:6px;top:3px;width:13px;height:13px;background:var(--plat);border:1px solid #000;box-shadow:inset 1px 1px 0 #fff,inset -1px -1px 0 #888;cursor:default}
+.tb .cb:active{background:#555}
+.in{background:#fff;border:1px solid #000;box-shadow:inset 1px 1px 0 #888;padding:18px 20px}
+.w h2{font:600 22px/1.15 "Pixelify Sans",Chicago,sans-serif;margin:0 0 6px}
+.w h3{font:600 14px "Pixelify Sans",Chicago,sans-serif;margin:18px 0 6px}
+.w p{margin:0 0 10px;font-size:13px;line-height:1.5}
+.kick{font:20px/1 VT323,monospace;color:#555;margin:0 0 6px}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 4px 2px}
+.dots{display:flex;gap:5px}
+.dots i{width:9px;height:9px;border:1px solid #000;background:#fff}
+.dots i.on{background:#000}
+.btn{display:inline-block;padding:3px 16px;border:1px solid #000;border-radius:6px;background:#eee;color:#000;text-decoration:none;font:600 12px "Pixelify Sans",Chicago,Geneva,sans-serif;box-shadow:inset 1px 1px 0 #fff,inset -1px -1px 0 #999;cursor:default;appearance:none}
+.btn.def{outline:3px solid #000;outline-offset:1px;margin:4px}
+.btn:active{background:#000;color:#fff}
+.btn.ghost{visibility:hidden}
+@media (max-width:760px){.desk{padding:20px 12px 40px}}
+</style>
+<div id="wall"></div>
+<main class="desk" id="desk">
+
+<style>
+.me{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+.mac{flex:none;width:136px;text-align:center;cursor:default}
+.mac .scr{width:136px;height:126px;background:#eee;border:2px solid #000;border-radius:8px 8px 2px 2px;display:grid;place-items:center;box-shadow:inset -3px -3px 0 #bbb}
+.mac .scr i{position:relative;display:block;width:100px;height:100px;background:#000;border:2px solid #555;overflow:hidden}
+.mac .scr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;image-rendering:pixelated;transition:opacity .3s}
+.mac .scr img+img{opacity:1;image-rendering:auto}
+.mac.real .scr img+img{opacity:0}
+.mac .base{width:136px;height:18px;border:2px solid #000;border-top:0;background:#ddd}
+.me .txt{flex:1;min-width:230px}
+</style>
+<section class="w" id="about" data-step="1">
+  <div class="tb"><span class="cb"></span><span class="n">About This Kirill</span></div>
+  <div class="in">
+    <div class="me">
+      <div class="mac" id="mac"><div class="scr"><i><img src="img/headshot-1bit.png" alt="Kirill Polevoy"><img src="img/headshot.jpg" alt="" aria-hidden="true"></i></div><div class="base"></div></div>
+      <div class="txt">
+        <h2>Kirill Polevoy</h2>
+        <p>I've spent 15+ years leading product across fintech, insurance, and business travel. I joined a PE-backed company as its first product hire and helped rebuild it into the market leader within three years.</p>
+        <p>Now I run Full Range. We find where AI pays off and build only what drives revenue and margin. Nobody should do work a machine can do. I'm also a Claude Ambassador in Chicago.</p>
+        <p style="margin:0">The rest of the time I'm on the street with a Leica, shooting black and white. Gallery VICTOR represents my photography.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="dots"><i class="on"></i><i></i><i></i><i></i><i></i></span><span><a class="btn def" href="#projects" data-go="projects">Projects ▸</a></span></div>
+</section>
+
+<style>
+.rows{border:1px solid #000;margin-top:10px}
+.rows div{display:grid;grid-template-columns:110px 1fr;border-bottom:1px solid #ccc;font-size:13px}
+.rows div:last-child{border:0}
+.rows span{padding:7px 10px}
+.rows span:first-child{font:600 13px "Pixelify Sans",Chicago,sans-serif;border-right:1px solid #ccc;background:#f3f3f3}
+.proj{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+.proj div{border:1px solid #000;padding:9px 11px;background:#fff;box-shadow:2px 2px 0 #000;font-size:12px;line-height:1.45}
+.proj b{display:flex;justify-content:space-between;gap:8px;font:600 13px "Pixelify Sans",Chicago,sans-serif;margin-bottom:3px}
+.proj em{font-style:normal;font:16px/1 VT323,monospace;color:#555}
+.proj a{display:inline-block;margin-top:4px}
+.feat{display:grid;grid-template-columns:1.1fr 1fr;gap:14px;align-items:center;margin-top:10px;border:1px solid #000;padding:10px;background:#f3f3f3}
+.feat img{width:100%;border:1px solid #000;box-shadow:2px 2px 0 #000}
+.feat b{display:block;font:600 14px "Pixelify Sans",Chicago,sans-serif;margin-bottom:3px}
+.feat div{font-size:12px;line-height:1.45}
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:10px}
+.pc{font-size:13px;line-height:1.45}
+.pc b{display:block;font:600 14px "Pixelify Sans",Chicago,sans-serif;margin:8px 0 2px}
+.pc .pd{display:block;margin-bottom:3px}
+.shot{display:block;border:1px solid #000;background:#fff;box-shadow:2px 2px 0 #000;text-decoration:none;color:#000}
+.shot .sb{display:block;height:16px;line-height:16px;text-align:center;font:600 11px "Pixelify Sans",Chicago,sans-serif;border-bottom:1px solid #000;background:repeating-linear-gradient(#ddd 0 1px,#fff 1px 2px)}
+.shot img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
+@media (max-width:560px){.pg{grid-template-columns:1fr}}
+@media (max-width:560px){.feat{grid-template-columns:1fr}}
+@media (max-width:560px){.proj{grid-template-columns:1fr}.rows div{grid-template-columns:90px 1fr}}
+</style>
+
+
+<section class="w wide" id="projects" data-step="2">
+  <div class="tb"><span class="cb"></span><span class="n">Projects (1 of 2)</span></div>
+  <div class="in">
+    <h2>Things I've built</h2>
+    <p>I built each of these to solve a problem of my own. All of them are live.</p>
+    <div class="pg">
+      <div class="pc"><a class="shot" href="https://www.tinyviewers.com"><span class="sb">tinyviewers.com</span><img src="img/proj-tinyviewers.jpg" alt="Tiny Viewers home page"></a><b>Tiny Viewers</b><span class="pd">A scene guide for kids' movies. It flags the intense moments, when they happen and how intense they get.</span><a href="https://www.tinyviewers.com">tinyviewers.com</a></div>
+      <div class="pc"><a class="shot" href="https://www.storystackstudios.com"><span class="sb">StoryStack</span><img src="img/proj-storystack.jpg" alt="StoryStack home page"></a><b>StoryStack</b><span class="pd">A single library for every photo and video a brand team shoots. AI tags each asset, so the right shot takes seconds to find.</span><a href="https://www.storystackstudios.com">storystackstudios.com</a></div>
+      <div class="pc"><a class="shot" href="https://chromewebstore.google.com/detail/relai/inkojohbljaagknapmgmciaabdgekjdm"><span class="sb">Relai</span><img src="img/proj-relai.jpg" alt="Relai: capture, view saved, send to another AI"></a><b>Relai</b><span class="pd">Moves a conversation between ChatGPT, Claude, Gemini and Perplexity without losing context. Everything stays on your machine.</span><a href="https://chromewebstore.google.com/detail/relai/inkojohbljaagknapmgmciaabdgekjdm">Chrome Web Store</a></div>
+    </div>
+  </div>
+  <div class="foot"><span class="dots"><i></i><i class="on"></i><i></i><i></i><i></i></span><span><a class="btn" href="#about" data-go="about">◂ Back</a><a class="btn def" href="#projects2" data-go="projects2">More projects ▸</a></span></div>
+</section>
+<section class="w wide" id="projects2" data-step="2">
+  <div class="tb"><span class="cb"></span><span class="n">Projects (2 of 2)</span></div>
+  <div class="in">
+    <h2>Things I've built</h2>
+    <div class="pg">
+      <div class="pc"><a class="shot" href="https://spektr.kirillpolevoy.com"><span class="sb">Spektr</span><img src="img/proj-spektr.jpg" alt="Spektr relationship map"></a><b>Spektr</b><span class="pd">My personal CRM and journal. Claude connects to it directly over MCP.</span><a href="https://spektr.kirillpolevoy.com">spektr.kirillpolevoy.com</a></div>
+      <div class="pc"><a class="shot" href="https://www.linkedin.com/in/kirill-polevoy/recent-activity/all/"><span class="sb">Vivian</span><img src="img/proj-vivian.jpg" alt="A LinkedIn post by Kirill"></a><b>Vivian</b><span class="pd">My LinkedIn ghostwriter. It reads my notes, proposes three angles, and drafts the post from the one I choose. This post started as one of them.</span><a href="https://www.linkedin.com/in/kirill-polevoy/recent-activity/all/">See the posts</a></div>
+      <div class="pc wip"><b>Also built</b><span class="pd">A personal finance ledger, a weekly email of kids' events around Chicago, and a set of Claude Code skills.</span></div>
+    </div>
+  </div>
+  <div class="foot"><span class="dots"><i></i><i class="on"></i><i></i><i></i><i></i></span><span><a class="btn" href="#projects" data-go="projects">◂ Back</a><a class="btn def" href="#photos" data-go="photos">Photography ▸</a></span></div>
+</section>
+
+<style>
+.stage{position:relative;background:#000;aspect-ratio:4/3;display:grid;place-items:center;overflow:hidden;border:1px solid #000}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .35s}
+.stage .cap{position:absolute;left:0;right:0;bottom:0;padding:6px 10px;color:#fff;font:20px VT323,monospace;background:linear-gradient(transparent,rgba(0,0,0,.8))}
+.qtc{display:flex;align-items:center;gap:6px;padding:6px 0 0}
+.qtc button{appearance:none;width:30px;height:22px;border:1px solid #000;border-radius:4px;background:#eee;box-shadow:inset 1px 1px 0 #fff,inset -1px -1px 0 #999;font:12px "Pixelify Sans",sans-serif;cursor:default;padding:0;color:#000}
+.qtc button:active{background:#000;color:#fff}
+.scrub{flex:1;height:10px;border:1px solid #000;background:#fff;position:relative}
+.scrub span{position:absolute;inset:0 auto 0 0;background:repeating-linear-gradient(90deg,#000 0 2px,#666 2px 3px);width:8%}
+.qtc .n2{font:18px VT323,monospace;min-width:44px;text-align:right}
+.qt{margin:12px 0 14px}
+</style>
+<section class="w" id="photos" data-step="3">
+  <div class="tb"><span class="cb"></span><span class="n">Photography</span></div>
+  <div class="in">
+    <h2>Shooting since 2003</h2>
+    <p>I started on an old Russian Zorki film camera and moved to digital in 2010. Today I shoot black and white on a Leica M10 Monochrom, mostly on the streets of Chicago.</p>
+    <div class="qt">
+      <div class="stage"><img id="qtimg" src="img/l1001426.jpg" alt="Tuesday Afternoon at the Daley Plaza, Chicago"><div class="cap" id="qtcap">Tuesday Afternoon at the Daley Plaza, Chicago</div></div>
+      <div class="qtc"><button id="qtprev" aria-label="Previous">|◀</button><button id="qtplay" aria-label="Play or pause">▶</button><button id="qtnext" aria-label="Next">▶|</button><div class="scrub"><span id="qtbar"></span></div><span class="n2" id="qtn">1/12</span></div>
+    </div>
+    <p style="font:22px/1.15 VT323,monospace">"Through a black and white lens, hidden stories of everyday objects become apparent."</p>
+    <p style="margin:0">Gallery VICTOR represents my work, which is also available on Artsy and 1stDibs. My book <i>Chasing Light: A Decade of Photography</i> was published in 2021.</p>
+    <p style="margin:12px 0 0"><a class="btn" href="https://www.galleryvictor.com/kirill-polevoy">Gallery VICTOR</a> <a class="btn" href="https://www.kirillpolevoy.com">kirillpolevoy.com</a></p>
+  </div>
+  <div class="foot"><span class="dots"><i></i><i></i><i class="on"></i><i></i><i></i></span><span><a class="btn" href="#projects2" data-go="projects2">◂ Back</a><a class="btn def" href="#talks" data-go="talks">Speaking ▸</a></span></div>
+</section>
+
+<style>
+.ev{padding:9px 12px;border-bottom:1px solid #ccc;font-size:13px}
+.ev:last-child{border:0}
+.ev .d{display:block;font-size:11px;color:#555;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.ev .t{display:block}
+.ev b{display:block;font-family:"Pixelify Sans",Chicago,sans-serif;font-size:13px}
+.evs{border:1px solid #000;margin-top:10px}
+</style>
+<section class="w wide" id="talks" data-step="4">
+  <div class="tb"><span class="cb"></span><span class="n">Speaking</span></div>
+  <div class="in">
+    <h2>Talks and events</h2>
+    <p>Most of my talks cover AI for business owners and operators. Some cover the stories behind my photographs. As a Claude Ambassador, I also lead hands-on workshops for operations, finance and leadership teams.</p>
+    <figure class="tg">
+      <div class="tgr">
+        <a href="img/talk-1.jpg"><img src="img/talk-1.jpg" alt="Kirill at the podium opening the panel, a full room of seated guests" loading="lazy"></a>
+        <a href="img/talk-2.jpg"><img src="img/talk-2.jpg" alt="Kirill introducing the panel of business owners to the audience" loading="lazy"></a>
+        <a href="img/talk-3.jpg"><img src="img/talk-3.jpg" alt="Kirill speaking at the podium" loading="lazy"></a>
+        <a href="img/talk-4.jpg"><img src="img/talk-4.jpg" alt="Kirill with a microphone, hosting the evening" loading="lazy"></a>
+      </div>
+      <figcaption>AI Inside Local Businesses, Ferris &amp; Co., September 2026</figcaption>
+    </figure>
+    <div class="evs">
+      <div class="ev"><div class="d">Nov 19 2026</div><div class="t"><b>YPO real estate forum (upcoming)</b>How scaled businesses can leverage AI for growth.</div></div>
+      <div class="ev"><div class="d">Oct 2026</div><div class="t"><b>"Alt vi kan," TRY podcast, Oslo</b>Guest on the agency's podcast about AI.</div></div>
+      <div class="ev"><div class="d">Sep 9 2026</div><div class="t"><b>AI Inside Local Businesses, Ferris &amp; Co.</b>Organized and hosted a panel of Chicago business owners. About 100 people attended.</div></div>
+      <div class="ev"><div class="d">Mar 4 2026</div><div class="t"><b>Photography Society, University Club of Chicago</b>How I came to photography, followed by Q&amp;A.</div></div>
+      <div class="ev"><div class="d">2025</div><div class="t"><b>Artist talk, Gallery VICTOR</b>During EXPO Chicago week.</div></div>
+    </div>
+  </div>
+  <div class="foot"><span class="dots"><i></i><i></i><i></i><i class="on"></i><i></i></span><span><a class="btn" href="#photos" data-go="photos">◂ Back</a><a class="btn def" href="#contact" data-go="contact">Contact ▸</a></span></div>
+</section>
+
+<style>
+.ct{list-style:none;margin:10px 0 0;padding:0;border:1px solid #000}
+.ct li{display:flex;justify-content:space-between;gap:12px;padding:7px 12px;border-bottom:1px solid #ccc;font-size:13px}
+.ct li:last-child{border:0}
+.ct span{font-weight:700}
+</style>
+<section class="w" id="contact" data-step="5">
+  <div class="tb"><span class="cb"></span><span class="n">Chooser</span></div>
+  <div class="in">
+    <h2>Get in touch</h2>
+    <p>For consulting work or print inquiries, reach out below.</p>
+    <ul class="ct">
+      <li><span>Work</span><a href="https://fullrange.ai">fullrange.ai</a></li>
+      <li><span>Photo</span><a href="https://www.kirillpolevoy.com">kirillpolevoy.com</a></li>
+      <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/kirill-polevoy">in/kirill-polevoy</a></li>
+      <li><span>Instagram</span><a href="https://www.instagram.com/k.polevoy/">@k.polevoy</a></li>
+      <li><span>X</span><a href="https://x.com/polevoy_kirill">@polevoy_kirill</a></li>
+    </ul>
+  </div>
+  <div class="foot"><span class="dots"><i></i><i></i><i></i><i></i><i class="on"></i></span><span><a class="btn" href="#talks" data-go="talks">◂ Back</a><a class="btn def" href="#about" data-go="about">Start over</a></span></div>
+</section>
+
+</main>
+</div>
+
+<style>
+.icons{position:absolute;top:36px;right:14px;z-index:30;display:none;flex-direction:column;gap:16px;align-items:center}
+.js .icons{display:flex}
+.ico{all:unset;width:84px;text-align:center;cursor:default;font:11px Geneva,Verdana,sans-serif;color:#fff;text-shadow:1px 1px 0 #000}
+.ico i{display:block;margin:0 auto 4px;width:40px;height:30px;position:relative;background:#c9c9ff;border:1px solid #000;box-shadow:1px 1px 0 #000}
+.ico i::before{content:"";position:absolute;left:-1px;top:-7px;width:18px;height:6px;background:#c9c9ff;border:1px solid #000;border-bottom:0}
+.ico.sel span,.ico:focus span{background:#000;color:#fff;text-shadow:none;padding:0 3px}
+.ico.trash i{width:30px;height:34px;background:repeating-linear-gradient(90deg,#ddd 0 4px,#999 4px 5px);border-top-width:5px}
+.ico.trash i::before{display:none}
+@media (max-width:760px){.js .icons{display:none}}
+.dd{display:none;position:fixed;top:22px;z-index:60;min-width:210px;background:#eee;border:1px solid #000;box-shadow:2px 2px 0 rgba(0,0,0,.6);padding:3px 0;font:600 13px "Pixelify Sans",Chicago,Geneva,sans-serif}
+.dd.open{display:block}
+.dd a,.dd button{all:unset;display:block;padding:2px 22px;cursor:default;color:#000}
+.dd a:hover,.dd button:hover,.dd a:focus,.dd button:focus{background:#000;color:#fff}
+.dd hr{border:0;border-top:1px dotted #777;margin:3px 0}
+.mi.on{background:#000;color:#fff}
+.modal{position:fixed;inset:0;z-index:90;display:none;place-items:center;padding:16px;background:rgba(0,0,0,.15)}
+.modal.open{display:grid}
+.dlg{max-width:400px;width:100%;background:var(--plat);border:1px solid #000;box-shadow:inset 1px 1px 0 #fff,inset -1px -1px 0 #888,3px 3px 0 rgba(0,0,0,.6);padding:4px}
+.dlg .inner{border:2px solid #000;padding:16px;display:flex;gap:16px;align-items:flex-start}
+.dlg p{margin:0 0 12px}
+#boot{position:fixed;inset:0;z-index:100;background:#bbb;display:grid;place-items:center;font:12px Geneva,Verdana,sans-serif}
+#boot .welcome{background:var(--plat);border:1px solid #000;box-shadow:2px 2px 0 #000;padding:16px 22px;text-align:center;min-width:240px}
+#boot .welcome b{display:block;font:600 22px "Pixelify Sans",Chicago,sans-serif;margin-bottom:10px}
+#boot .pb{height:12px;border:1px solid #000;background:#fff}
+#boot .pb span{display:block;height:100%;width:0;background:repeating-linear-gradient(90deg,#3333aa 0 3px,#6666cc 3px 4px)}
+#boot .ext{position:fixed;left:10px;bottom:10px;right:10px;display:flex;flex-wrap:wrap;gap:6px}
+#boot .ext i{width:28px;height:28px;border:1px solid #000;background:#fff;display:grid;place-items:center;font:600 11px "Pixelify Sans",sans-serif;font-style:normal;box-shadow:1px 1px 0 #000}
+#boot .skip{position:fixed;top:10px;right:12px;color:#333;font-size:11px}
+#safe{position:fixed;inset:0;z-index:100;background:#000;display:none;place-items:center;color:#f90;font:24px VT323,monospace;text-align:center;padding:16px}
+#safe.open{display:grid}
+</style>
+<div class="icons" aria-label="Desktop">
+  <button class="ico" data-go="about"><i></i><span>About</span></button>
+  <button class="ico" data-go="projects"><i></i><span>Projects</span></button>
+  <button class="ico" data-go="photos"><i></i><span>Photography</span></button>
+  <button class="ico" data-go="talks"><i></i><span>Speaking</span></button>
+  <button class="ico" data-go="contact"><i></i><span>Contact</span></button>
+  <button class="ico trash" data-act="bomb" style="margin-top:20px"><i></i><span>Trash</span></button>
+</div>
+<div class="dd" id="m-apple" role="menu">
+  <a href="#about" data-go="about">About This Kirill…</a>
+  <hr>
+  <a href="#projects" data-go="projects">Projects</a>
+  <a href="#photos" data-go="photos">Photography</a>
+  <a href="#talks" data-go="talks">Speaking</a>
+  <a href="#contact" data-go="contact">Chooser</a>
+</div>
+<div class="dd" id="m-go" role="menu">
+  <button data-act="next">Next Window</button>
+  <button data-act="prev">Previous Window</button>
+  <hr>
+  <a href="https://fullrange.ai">fullrange.ai</a>
+  <a href="https://www.kirillpolevoy.com">kirillpolevoy.com</a>
+</div>
+<div class="dd" id="m-special" role="menu">
+  <button data-act="bomb">Empty Trash…</button>
+  <button data-act="wall">Change Desktop Picture</button>
+  <hr>
+  <button data-act="restart">Restart</button>
+  <button data-act="shutdown">Shut Down</button>
+</div>
+<div class="modal" id="bomb" role="dialog" aria-modal="true">
+  <div class="dlg"><div class="inner">
+    <svg width="40" height="40" viewBox="0 0 16 16" style="flex:none" aria-hidden="true"><rect x="3" y="6" width="9" height="9" rx="4" fill="#000"/><rect x="10" y="4" width="3" height="3" fill="#000"/><rect x="12" y="2" width="1" height="2" fill="#000"/><rect x="13" y="1" width="2" height="1" fill="#000"/><rect x="5" y="8" width="2" height="2" fill="#fff"/></svg>
+    <div>
+      <p><b>Sorry, a system error occurred.</b></p>
+      <p>"Trash" tried to throw away a perfectly good workflow. Full Range would automate it instead.</p>
+      <p style="margin:0">Error type 11</p>
+      <p style="margin:14px 0 0;text-align:right"><button class="btn" data-act="closebomb">Resume</button> <button class="btn def" data-act="restart">Restart</button></p>
+    </div>
+  </div></div>
+</div>
+<div id="safe">It is now safe to switch off<br>your computer.<br><br><span style="font-size:16px;color:#888">Tap anywhere to restart</span></div>
+<div class="crt" aria-hidden="true"></div>
+</div></div>
+<div class="chin"><span class="grill l"></span>iMac<span class="grill r"></span><span class="cd"></span><span class="led"></span></div>
+</div>
+<div class="stand"></div>
+<div class="caption">Kirill Polevoy · Mac OS 9.2.2 · 1024 × 768, Millions of Colors</div>
+</div>
+
+<script>
+(function(){
+document.documentElement.classList.add('js');
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var scr=$('#screen'),sc=$('#scroller'),order=['about','projects','projects2','photos','talks','contact'],cur='about';
+function go(id){var w=document.getElementById(id);if(!w)return;$$('.w').forEach(function(x){x.classList.remove('cur')});w.classList.add('cur');cur=id;scr.classList.toggle('clean',id==='photos'||id==='projects'||id==='projects2'||id==='about'||id==='talks');
+  $$('.ico').forEach(function(i){i.classList.toggle('sel',i.getAttribute('data-go')===id.replace(/2$/,''))});sc.scrollTo({top:0,behavior:'smooth'});
+  try{history.replaceState(null,'','#'+id)}catch(e){}}
+function step(d){var i=order.indexOf(cur);go(order[(i+d+order.length)%order.length]);}
+function tick(){var c=$('#clock');if(c)c.textContent=new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});}
+tick();setInterval(tick,15000);
+var openMenu=null;
+function closeMenus(){$$('.dd').forEach(function(d){d.classList.remove('open')});$$('.mi').forEach(function(m){m.classList.remove('on')});openMenu=null;}
+$$('.mi').forEach(function(m){m.addEventListener('click',function(e){e.stopPropagation();var name=m.getAttribute('data-menu');if(openMenu===name){closeMenus();return;}closeMenus();var dd=$('#m-'+name),r=m.getBoundingClientRect(),sr=scr.getBoundingClientRect();dd.style.left=Math.max(0,Math.min(r.left-sr.left,sr.width-220))+'px';dd.classList.add('open');m.classList.add('on');openMenu=name;});
+  m.addEventListener('mouseenter',function(){if(openMenu&&openMenu!==m.getAttribute('data-menu'))m.click();});});
+document.addEventListener('click',function(e){if(!e.target.closest('.dd'))closeMenus();
+  var a=e.target.closest('[data-go]');if(a){e.preventDefault();closeMenus();go(a.getAttribute('data-go'));}
+  var b=e.target.closest('[data-act]');if(b){e.preventDefault();closeMenus();act(b.getAttribute('data-act'));}});
+$$('.cb').forEach(function(c){c.addEventListener('click',function(){$$('.w').forEach(function(x){x.classList.remove('cur')});});});
+var mac=$('#mac');if(mac)mac.addEventListener('click',function(){mac.classList.toggle('real');});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeMenus();$('#bomb').classList.remove('open');}if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1);});
+
+var photos=[['l1001426','Tuesday Afternoon at the Daley Plaza, Chicago'],['dscf0351','Ghost, Chicago'],['l1002988','Selfie, Florence'],['l1000691','Veiled, New York'],['dscf7134-edit','Silhouette, Chicago'],['l1001413','Business Lunch, Chicago'],['l1005848','On the Ferry, New York'],['l1000516','Fedora, Chicago'],['l1002779','Girl in a Window, Vienna'],['dscf1091','Pink, New York'],['l1000473',"A River's Tale, Chicago"],['l1007381','At the Fair, Chicago']];
+var qi=0,playing=false,timer=null;
+function show(i){qi=(i+photos.length)%photos.length;var im=$('#qtimg');im.style.opacity=0;setTimeout(function(){im.src='img/'+photos[qi][0]+'.jpg';im.alt=photos[qi][1];$('#qtcap').textContent=photos[qi][1];im.style.opacity=1;},180);
+  $('#qtn').textContent=(qi+1)+'/'+photos.length;$('#qtbar').style.width=((qi+1)/photos.length*100)+'%';}
+function play(on){playing=on;$('#qtplay').textContent=on?'❚❚':'▶';clearInterval(timer);if(on)timer=setInterval(function(){show(qi+1);},3200);}
+$('#qtprev').addEventListener('click',function(){show(qi-1);play(false);});
+$('#qtnext').addEventListener('click',function(){show(qi+1);play(false);});
+$('#qtplay').addEventListener('click',function(){play(!playing);});
+show(0);
+
+var walls=['img/l1001426.jpg','img/dscf0351.jpg','img/l1005848.jpg','img/l1000691.jpg'],wi=0;
+function dither(src){var img=new Image();img.onload=function(){var W=Math.min(260,Math.round(scr.clientWidth/3)),H=Math.round(W*img.height/img.width);var c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');x.drawImage(img,0,0,W,H);
+  var d=x.getImageData(0,0,W,H),p=d.data,g=new Float32Array(W*H);for(var i=0;i<W*H;i++)g[i]=.299*p[i*4]+.587*p[i*4+1]+.114*p[i*4+2];
+  for(var y=0;y<H;y++)for(var xx=0;xx<W;xx++){var k=y*W+xx,o=g[k],n=o<128?0:255,er=o-n;g[k]=n;if(xx+1<W)g[k+1]+=er*7/16;if(y+1<H){if(xx>0)g[k+W-1]+=er*3/16;g[k+W]+=er*5/16;if(xx+1<W)g[k+W+1]+=er/16;}}
+  var dark=getComputedStyle(document.documentElement).getPropertyValue('--desk2').trim()==='#30304f',A=dark?[16,16,32]:[40,40,96],B=dark?[70,70,120]:[150,150,215];
+  for(var j=0;j<W*H;j++){var cc=g[j]>127?B:A;p[j*4]=cc[0];p[j*4+1]=cc[1];p[j*4+2]=cc[2];p[j*4+3]=255;}
+  x.putImageData(d,0,0);var wl=$('#wall');wl.classList.remove('on');setTimeout(function(){wl.style.backgroundImage='url('+c.toDataURL()+')';wl.classList.add('on');},300);};img.src=src;}
+try{dither(walls[0]);}catch(e){}
+
+function act(a){
+  if(a==='next')step(1);if(a==='prev')step(-1);
+  if(a==='bomb')$('#bomb').classList.add('open');
+  if(a==='closebomb')$('#bomb').classList.remove('open');
+  if(a==='restart'){$('#bomb').classList.remove('open');$('#safe').classList.remove('open');boot();}
+  if(a==='shutdown')$('#safe').classList.add('open');
+  if(a==='wall'){wi=(wi+1)%walls.length;dither(walls[wi]);}
+}
+$('#safe').addEventListener('click',function(){act('restart');});
+
+function boot(){var b=document.createElement('div');b.id='boot';
+  b.innerHTML='<span class="skip">click to skip</span><div style="text-align:center"><svg width="64" height="76" viewBox="0 0 32 38" style="margin:0 auto 18px;display:block" aria-hidden="true"><rect x="1" y="1" width="30" height="34" rx="3" fill="#ddd" stroke="#000" stroke-width="2"/><rect x="5" y="5" width="22" height="17" fill="#fff" stroke="#000" stroke-width="2"/><rect x="11" y="9" width="2" height="4" fill="#000"/><rect x="19" y="9" width="2" height="4" fill="#000"/><rect x="15" y="11" width="2" height="5" fill="#000"/><path d="M11 17 q5 4 10 0" stroke="#000" stroke-width="1.6" fill="none"/><rect x="5" y="27" width="10" height="2" fill="#000"/><rect x="1" y="35" width="30" height="2" fill="#000"/></svg>'
+  +'<div class="welcome" style="opacity:0;transition:opacity .2s"><b>Welcome to Kirill OS</b><div class="pb"><span></span></div></div></div><div class="ext"></div>';
+  scr.appendChild(b);var wel=$('.welcome',b),bar=$('.pb span',b),ext=$('.ext',b),exts=['QT','AI','FR','35','M10','◐','⌘','@','CL','B&W','K'],t0=Date.now(),done=false;
+  function end(){if(done)return;done=true;b.style.transition='opacity .25s';b.style.opacity=0;setTimeout(function(){b.remove();go('about');},260);}
+  b.addEventListener('click',end);setTimeout(function(){wel.style.opacity=1;},500);
+  var k=0,iv=setInterval(function(){var p=Math.min(1,(Date.now()-t0-500)/2200);if(p>0)bar.style.width=(p*100)+'%';
+    if(p>0&&k<exts.length&&p>k/exts.length){var i=document.createElement('i');i.textContent=exts[k++];ext.appendChild(i);}
+    if(p>=1){clearInterval(iv);setTimeout(end,300);}},60);}
+var start=(location.hash||'').slice(1);go(order.indexOf(start)>=0?start:'about');
+var seen=false;try{seen=sessionStorage.getItem('kos-boot')==='1';sessionStorage.setItem('kos-boot','1');}catch(e){}
+if(!seen)boot();
+})();
+</script>
+<style>
+.tb{position:sticky;top:22px;z-index:5;background:repeating-linear-gradient(var(--plat) 0 2px,#999 2px 3px,#fff 3px 4px) content-box content-box,linear-gradient(var(--plat),var(--plat)) border-box border-box}
+.w.wide{max-width:780px}
+.pg{grid-template-columns:repeat(3,1fr)}
+.pc .pd{font-size:12px;line-height:1.45}
+.pc.wip{border:1px dashed #000;padding:10px 12px;background:#f6f6f6;align-self:start}
+@media (max-width:900px){.pg{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.pg{grid-template-columns:1fr}}
+</style>
+<style>
+.tg{margin:12px 0 14px;padding:0}
+.tgr{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tgr a{display:flex;align-items:center;justify-content:center;aspect-ratio:3/2;background:#e6e6e6;border:1px solid #000;box-shadow:1px 1px 0 #000}
+.tgr img{max-width:100%;max-height:100%;width:auto;height:auto;display:block}
+.tg figcaption{font-size:11px;color:#444;margin-top:6px}
+@media (max-width:560px){.tgr{grid-template-columns:1fr 1fr}}
+</style>
+</body>
+</html>
