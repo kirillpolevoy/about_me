@@ -66,7 +66,12 @@ box-shadow:inset 0 0 90px rgba(0,0,0,.55),inset 0 0 14px rgba(0,0,0,.6);animatio
  .imac{min-height:0}
  .screen{position:fixed;inset:0;height:auto}
  .scroller{top:22px;overscroll-behavior:contain}
- .tb{top:0 !important}
+ .js .scroller{overflow:hidden}
+ .js .desk{height:100%;min-height:0;padding:10px 8px 12px;justify-content:flex-start}
+ .js .w.cur{display:flex;flex-direction:column;max-height:100%;min-height:0}
+ .js .w .tb{position:relative !important;top:auto !important;flex:none}
+ .js .w .in{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+ .js .w .foot{flex:none}
  #menubar{position:fixed !important;top:0;left:0;right:0}
  .crt{box-shadow:inset 0 0 40px rgba(0,0,0,.45);background:repeating-linear-gradient(rgba(0,0,0,.04) 0 1px,transparent 1px 3px)}
 }
@@ -370,7 +375,7 @@ document.documentElement.classList.add('js');
 var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 var scr=$('#screen'),sc=$('#scroller'),order=['about','projects','projects2','photos','talks','contact'],cur='about';
 function go(id){var w=document.getElementById(id);if(!w)return;$$('.w').forEach(function(x){x.classList.remove('cur')});w.classList.add('cur');cur=id;scr.classList.toggle('clean',id==='photos'||id==='projects'||id==='projects2'||id==='about'||id==='talks');
-  $$('.ico').forEach(function(i){i.classList.toggle('sel',i.getAttribute('data-go')===id.replace(/2$/,''))});sc.scrollTo({top:0,behavior:'smooth'});
+  $$('.ico').forEach(function(i){i.classList.toggle('sel',i.getAttribute('data-go')===id.replace(/2$/,''))});sc.scrollTo({top:0,behavior:'smooth'});$$('.w .in').forEach(function(x){x.scrollTop=0});
   try{history.replaceState(null,'','#'+id)}catch(e){}}
 function step(d){var i=order.indexOf(cur);go(order[(i+d+order.length)%order.length]);}
 function tick(){var c=$('#clock');if(c)c.textContent=new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});}
