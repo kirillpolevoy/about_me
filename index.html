@@ -55,7 +55,7 @@ box-shadow:inset 0 0 90px rgba(0,0,0,.55),inset 0 0 14px rgba(0,0,0,.6);animatio
 .chin .led{position:absolute;bottom:20px;right:24%;width:7px;height:7px;border-radius:50%;background:#7cf07c;box-shadow:0 0 8px #7cf07c}
 .stand{width:min(420px,40vw);height:26px;margin-top:-2px;border-radius:0 0 50% 50%/0 0 100% 100%;background:linear-gradient(rgba(30,170,190,.85),rgba(10,100,115,.9));box-shadow:0 16px 30px rgba(0,0,0,.5)}
 .caption{color:#77757e;font:11px Geneva,Verdana,sans-serif;margin:10px 0 12px;text-align:center}
-@media (max-width:760px){
+@media (max-width:760px),(max-height:500px){
  body{overflow:hidden}
  .imac{padding:0;display:block}
  .shell{width:100%;padding:0;border-radius:0;background:none;box-shadow:none}
@@ -117,7 +117,7 @@ background:repeating-linear-gradient(var(--plat) 0 2px,#999 2px 3px,#fff 3px 4px
 .btn.def{outline:3px solid #000;outline-offset:1px;margin:4px}
 .btn:active{background:#000;color:#fff}
 .btn.ghost{visibility:hidden}
-@media (max-width:760px){.desk{padding:20px 12px 40px}}
+@media (max-width:760px),(max-height:500px){.desk{padding:20px 12px 40px}}
 </style>
 <div id="wall"></div>
 <main class="desk" id="desk">
@@ -301,7 +301,7 @@ background:repeating-linear-gradient(var(--plat) 0 2px,#999 2px 3px,#fff 3px 4px
 .ico.sel span,.ico:focus span{background:#000;color:#fff;text-shadow:none;padding:0 3px}
 .ico.trash i{width:30px;height:34px;background:repeating-linear-gradient(90deg,#ddd 0 4px,#999 4px 5px);border-top-width:5px}
 .ico.trash i::before{display:none}
-@media (max-width:760px){.js .icons{display:none}}
+@media (max-width:760px),(max-height:500px){.js .icons{display:none}}
 .dd{display:none;position:fixed;top:22px;z-index:60;min-width:210px;background:#eee;border:1px solid #000;box-shadow:2px 2px 0 rgba(0,0,0,.6);padding:3px 0;font:600 13px "Pixelify Sans",Chicago,Geneva,sans-serif}
 .dd.open{display:block}
 .dd a,.dd button{all:unset;display:block;padding:2px 22px;cursor:default;color:#000}
@@ -442,6 +442,13 @@ if(!seen)boot();
 <style>
 .tb{position:sticky;top:22px;z-index:5;background:repeating-linear-gradient(var(--plat) 0 2px,#999 2px 3px,#fff 3px 4px) content-box content-box,linear-gradient(var(--plat),var(--plat)) border-box border-box}
 .w.wide{max-width:780px}
+.js .scroller{overflow:hidden}
+.js .desk{height:calc(100% - 22px);min-height:0}
+.js .w.cur{display:flex;flex-direction:column;max-height:100%;min-height:0;flex-shrink:1}
+.js .w .tb{position:relative;top:auto;flex:none}
+.js .w .in{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.js .w .foot{flex:none}
+@media (max-width:760px),(max-height:500px){.js .desk{height:100%}}
 .pg{grid-template-columns:repeat(3,1fr)}
 .pc .pd{font-size:12px;line-height:1.45}
 .pc.wip{border:1px dashed #000;padding:10px 12px;background:#f6f6f6;align-self:start}
